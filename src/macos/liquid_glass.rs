@@ -1,10 +1,10 @@
 use std::ffi::c_void;
 
 use objc2::{
+    MainThreadMarker,
     ffi::{objc_getAssociatedObject, objc_setAssociatedObject},
     rc::Retained,
     runtime::AnyObject,
-    MainThreadMarker,
 };
 use objc2_app_kit::{
     NSAppKitVersionNumber, NSAutoresizingMaskOptions, NSBox, NSBoxType, NSColor, NSGlassEffectView,
@@ -12,7 +12,7 @@ use objc2_app_kit::{
 };
 use objc2_foundation::{NSInteger, NSRect};
 
-use crate::{macos::ns_glass_effect_view_tagged::NSGlassEffectViewTagged, Error};
+use crate::{Error, macos::ns_glass_effect_view_tagged::NSGlassEffectViewTagged};
 
 /// NSView::tag for NSVisualEffectViewTagged, just a random number
 pub const NS_VIEW_TAG_GLASS_VIEW: NSInteger = 96945937;

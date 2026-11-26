@@ -1,8 +1,8 @@
 use objc2::{
-    define_class, msg_send,
+    DefinedClass, define_class, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObjectProtocol,
-    sel, DefinedClass,
+    sel,
 };
 use objc2_app_kit::NSGlassEffectView;
 use objc2_foundation::{NSInteger, NSRect};

@@ -2,9 +2,9 @@
 name = "window-vibrancy"
 description = "Make your windows vibrant."
 authors = ["Tauri Programme within The Commons Conservancy"]
-version = "0.8.1"
-edition = "2021"
-rust-version = "1.77"
+version = "0.9.0"
+edition = "2024"
+rust-version = "1.98"
 license = "Apache-2.0 OR MIT"
 readme = "README.md"
 repository = "https://github.com/tauri-apps/tauri-plugin-vibrancy"
@@ -18,21 +18,21 @@ default-target = "x86_64-pc-windows-msvc"
 targets = ["x86_64-apple-darwin", "x86_64-pc-windows-msvc"]
 
 [dependencies]
-raw-window-handle = "0.6"
+raw-window-handle = "0.6.2"
 
 [dev-dependencies]
-tao = "0.34"
-winit = "0.30"
+tao = "0.38"
+winit = "0.30.13"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 wayland-client = { version = "0.31.15", features = ["system", "dlopen"] }
-wayland-protocols = { version = "0.32.12", features = ["client", "staging"] }
+wayland-protocols = { version = "0.32.13", features = ["client", "staging"] }
 
 [target.'cfg(target_os = "windows")'.dependencies]
-windows-version = "0.1"
+windows-version = "0.100"
 
 [target.'cfg(target_os = "windows")'.dependencies.windows-sys]
-version = ">=0.60, <=0.61"
+version = "0.61.2"
 features = [
   "Win32_Foundation",
   "Win32_System_LibraryLoader",
@@ -43,7 +43,7 @@ features = [
 ]
 
 [target.'cfg(target_os = "macos")'.dependencies]
-objc2 = "0.6"
+objc2 = "0.6.5"
 # 0.3.2 is the first version with NSGlassEffectView
 objc2-app-kit = { version = "0.3.2", default-features = false, features = [
   "std",
@@ -58,15 +58,15 @@ objc2-app-kit = { version = "0.3.2", default-features = false, features = [
   "NSView",
   "NSVisualEffectView",
 ] }
-objc2-foundation = { version = "0.3", default-features = false, features = [
+objc2-foundation = { version = "0.3.2", default-features = false, features = [
   "std",
   "NSThread",
   "NSGeometry",
 ] }
-objc2-core-foundation = { version = "0.3", default-features = false, features = [
+objc2-core-foundation = { version = "0.3.2", default-features = false, features = [
   "std",
 ] }
-objc2-quartz-core = { version = "0.3", default-features = false, features = [
+objc2-quartz-core = { version = "0.3.2", default-features = false, features = [
   "std",
   "objc2-core-foundation",
 ] }

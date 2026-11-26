@@ -6,8 +6,8 @@ use objc2_app_kit::{
 use objc2_foundation::{MainThreadMarker, NSInteger};
 use std::{ffi::c_void, ptr::NonNull};
 
-use crate::macos::NSVisualEffectViewTagged;
 use crate::Error;
+use crate::macos::NSVisualEffectViewTagged;
 
 /// NSView::tag for NSVisualEffectViewTagged, just a random number
 pub const NS_VIEW_TAG_BLUR_VIEW: NSInteger = 91376254;
@@ -63,7 +63,7 @@ pub unsafe fn apply_vibrancy(
 }
 
 pub unsafe fn clear_vibrancy(ns_view: NonNull<c_void>) -> Result<bool, Error> {
-    let view: &NSView = ns_view.cast().as_ref();
+    let view: &NSView = unsafe { ns_view.cast().as_ref() };
     let blurred_view = view.viewWithTag(NS_VIEW_TAG_BLUR_VIEW);
 
     if let Some(blurred_view) = blurred_view {

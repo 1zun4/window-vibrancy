@@ -21,7 +21,7 @@ fn main() {
             #[cfg(target_os = "macos")]
             window.with_webview(move |webview| {
                 use objc2_web_kit::WKWebView;
-                let webview: &WKWebView = unsafe {&*webview.inner().cast()};
+                let webview: &WKWebView = unsafe { &*webview.inner().cast() };
 
                 let options = LiquidGlassOptions::new(NSGlassEffectViewStyle::Sidebar)
                     .radius(26.0)
@@ -29,13 +29,19 @@ fn main() {
                     .interactive(true)
                     .content_view(webview);
 
-                apply_liquid_glass(&window_, options)
-                    .expect("Unsupported platform! 'apply_liquid_glass' is only supported on macOS 26+");
+                apply_liquid_glass(&window_, options).expect(
+                    "Unsupported platform! 'apply_liquid_glass' is only supported on macOS 26+",
+                );
             });
 
             #[cfg(target_os = "windows")]
             apply_blur(&window, Some((18, 18, 18, 125)))
                 .expect("Unsupported platform! 'apply_blur' is only supported on Windows");
+
+            #[cfg(target_os = "linux")]
+            apply_wayland_blur(&window, None).expect(
+                "Unsupported platform! 'apply_wayland_blur' needs a Wayland compositor with blur",
+            );
 
             Ok(())
         })

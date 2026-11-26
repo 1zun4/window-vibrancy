@@ -8,8 +8,8 @@
 #![allow(clippy::upper_case_acronyms)]
 
 use std::ffi::c_void;
-use windows_sys::core::BOOL;
 pub use windows_sys::Win32::{Foundation::*, Graphics::Dwm::*, System::LibraryLoader::*};
+use windows_sys::core::BOOL;
 
 use crate::{Color, Error};
 
@@ -30,8 +30,8 @@ pub fn apply_blur(hwnd: HWND, color: Option<Color>) -> Result<(), Error> {
         }
     } else {
         return Err(Error::UnsupportedPlatformVersion(
-      "\"apply_blur()\" is only available on Windows 7, Windows 10 v1809 or newer and Windows 11.",
-    ));
+            "\"apply_blur()\" is only available on Windows 7, Windows 10 v1809 or newer and Windows 11.",
+        ));
     }
     Ok(())
 }
@@ -53,8 +53,8 @@ pub fn clear_blur(hwnd: HWND) -> Result<(), Error> {
         }
     } else {
         return Err(Error::UnsupportedPlatformVersion(
-      "\"clear_blur()\" is only available on Windows 7, Windows 10 v1809 or newer and Windows 11.",
-    ));
+            "\"clear_blur()\" is only available on Windows 7, Windows 10 v1809 or newer and Windows 11.",
+        ));
     }
     Ok(())
 }
@@ -186,8 +186,9 @@ fn get_function_impl(library: &str, function: &str) -> Option<FARPROC> {
 
 macro_rules! get_function {
     ($lib:expr, $func:ident) => {
-        get_function_impl(concat!($lib, '\0'), concat!(stringify!($func), '\0'))
-            .map(|f| std::mem::transmute::<::windows_sys::Win32::Foundation::FARPROC, $func>(f))
+        get_function_impl(concat!($lib, '\0'), concat!(stringify!($func), '\0')).map(|f| unsafe {
+            std::mem::transmute::<::windows_sys::Win32::Foundation::FARPROC, $func>(f)
+        })
     };
 }
 
@@ -251,7 +252,7 @@ unsafe fn SetWindowCompositionAttribute(
             cbData: std::mem::size_of_val(&policy),
         };
 
-        set_window_composition_attribute(hwnd, &mut data as *mut _ as _);
+        unsafe { set_window_composition_attribute(hwnd, &mut data as *mut _ as _) };
     }
 }
 

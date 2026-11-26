@@ -4,19 +4,19 @@
 
 #![cfg(target_os = "linux")]
 
-use std::collections::hash_map::Entry;
 use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 use std::ffi::c_void;
 use std::ptr::NonNull;
 use std::sync::{Mutex, OnceLock};
 
 use wayland_client::backend::{Backend, ObjectId};
-use wayland_client::globals::{registry_queue_init, GlobalListContents};
+use wayland_client::globals::{GlobalListContents, registry_queue_init};
 use wayland_client::protocol::{
     wl_compositor::WlCompositor, wl_region::WlRegion, wl_registry::WlRegistry,
     wl_surface::WlSurface,
 };
-use wayland_client::{delegate_noop, Connection, Dispatch, EventQueue, Proxy, QueueHandle, WEnum};
+use wayland_client::{Connection, Dispatch, EventQueue, Proxy, QueueHandle, WEnum, delegate_noop};
 use wayland_protocols::ext::background_effect::v1::client::{
     ext_background_effect_manager_v1::{self, Capability, ExtBackgroundEffectManagerV1},
     ext_background_effect_surface_v1::ExtBackgroundEffectSurfaceV1,
